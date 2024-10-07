@@ -2,10 +2,10 @@
 with detailEmployejobQuarter as
 (
 SELECT d.department, j.job, DATEPART(Quarter,CONVERT(DATETIME, [datetime], 127)) q
-from pa.hired_employees he
-inner join pa.departments d
+from dbo.hired_employees he
+inner join dbo.departments d
 on he.department_id = d.id
-inner join pa.jobs j
+inner join dbo.jobs j
 on j.id = he.job_id
 where YEAR(CONVERT(DATETIME, [datetime], 127)) = 2021
 ),
