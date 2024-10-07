@@ -24,7 +24,7 @@ def create_to_sql(df, targetTable):
     columns = ", ".join([f"{col} {typeConversion[str(df[col].dtype)]}" for col in df.columns])
     query = f"""
     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='{targetTable}' AND xtype='U')
-    CREATE TABLE {PAtargetTable} (
+    CREATE TABLE {targetTable} (
         {columns}
     );
     """
