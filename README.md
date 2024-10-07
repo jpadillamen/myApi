@@ -10,41 +10,44 @@ git clone https://github.com/jpadillamen/myApi.git
 ```bash
 cd myApi
 ```
-3. Antes de lanzar acceder a fichero utils\connectionStr.py, y rellenar los datos de la base de datos.
+3. Before launching, access the file `utils\connectionStr.py` and fill in the database details.
 ```bash
 server = 'server-url'
 database = 'databaseName'
 username = 'user'
 password = 'password'
 ```   
-3. Volver a carpeta anterior y Execute REST API from command line
+3. Go back to the previous folder and execute the REST API from the command line.
 ```bash
 python app.py
 ```
 ## Use
-1. Una vez lanzada la aplicación, anotar la url que se necesita para llamar al servicio.
-por ejemplo:
+1. Once the application is launched, note down the URL needed to call the service.
+	For example:
     ![image](https://github.com/user-attachments/assets/05f4accb-e10c-40d5-a6da-0005781824a7)
-    en este ejemplo, la url es: http://127.0.0.1:5000
-2. Desde postman o desde curl llamar al servicio, donde upload-csv es el metodo que hemos implementado y file sera la ubicación del fichero:
+    in this example, the url is: http://127.0.0.1:5000
+3. From Postman or curl, call the service where `upload-csv`. This is the method we have implemented and file will be the location of the file.:
 ```bash
     curl --location --request POST 'http://127.0.0.1:5000/upload-csv' \
 --form 'file=@"/C:/Users/jpadilla/AppData/Local/Programs/Python/Python311/Scripts/Globant/hired_employees.csv"'
 ```
-si se utiliza postman, indicar la url, indicar que el metodo es POST, y en la sección Body, en form-data añadir un parametro file de tipo file.
-Esto nos permite seleccionar el fichero:
-![image](https://github.com/user-attachments/assets/2b4b7d0e-544a-4756-b46f-e5c37f20fd9e)
+If using Postman, specify the URL, indicate that the method is POST, and in the Body section, under form-data, add a parameter file of type file. This allows us to select the file:
+	![image](https://github.com/user-attachments/assets/2b4b7d0e-544a-4756-b46f-e5c37f20fd9e)
 
 ## Explanation
-1. El proceso recibe un fichero y realiza validaciones sobre este: Que sea un fichero, que sea csv, que el nombre sea uno de los tres posibles ficheros que espera.
-2. Una vez que valida la información, almacena el fichero en un dataframe.
-3. Al dataframe le asigna columnas en función del nombre de fichero.
-4. Llama a las funciones de creacion e inserción en tablas.
-5. Funciones en la librería `utils`, `sqlConnection`:
-    5.1. `create_to_sql(df, targetTable)`: 
-    Recibe el dataframe y el nombre de la tabla. Recupera los tipos de datos de las columnas a crear a partir de los tipos de datos que identifica en el dataframe. Si no existe la tabla, la crea en la base de datos, con los tipos de datos identificados. En mi caso son enteros o string.
-    5.2. `insert_to_sql(df, targetTable)`:
-    Inserta los datos del dataframe en la tabla especificada. Si la tabla no existe, primero la crea utilizando la función `create_to_sql`.
-6. La base de datos donde se quiere 
+1. The process receives a file and performs validations on it:	
+
+	Validate that it is a file, that it is a CSV, and that the name is one of the three possible files expected.
+2. Once the information is validated, it stores the file in a dataframe. 
+3. Assign columns to the dataframe based on the file name.
+4. Call the functions for creation and insertion into tables.
+5. Functions in the `utils.sqlConnection` library:
+   
+	5.1. `create_to_sql(df, targetTable)`: 
+	Receives the dataframe and the table name. Retrieves the data types of the columns to be created based on the data types identified in the dataframe. If the table does not exist, it creates it in the database with the identified data types. In my case, they are integers or strings.
+
+	5.2. `insert_to_sql(df, targetTable)`:
+	Inserts the dataframe data into the specified table. If the table does not exist, it first creates it using the create_to_sql function. 7. The database where it wants to
+
 ## Contact
 You can concact me via email: jpadillamen@gmail.com
