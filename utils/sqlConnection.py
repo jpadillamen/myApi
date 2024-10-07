@@ -24,7 +24,7 @@ def create_to_sql(df, targetTable):
     columns = ", ".join([f"{col} {typeConversion[str(df[col].dtype)]}" for col in df.columns])
     query = f"""
     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='{targetTable}' AND xtype='U')
-    CREATE TABLE PA.{targetTable} (
+    CREATE TABLE {PAtargetTable} (
         {columns}
     );
     """
@@ -58,7 +58,7 @@ def insert_to_sql(df, targetTable):
         batch.append(tuple(row))
         if len(batch) == batch_size:
             query = f"""
-            INSERT INTO PA.{targetTable} ({", ".join(df.columns)}) 
+            INSERT INTO {targetTable} ({", ".join(df.columns)}) 
             VALUES ({placeholders})
             """
             #print(query)  # Imprimir la consulta y los valores
@@ -69,7 +69,7 @@ def insert_to_sql(df, targetTable):
     # Insertar si quedan registros restantes
     if batch:
         query = f"""
-        INSERT INTO PA.{targetTable} ({", ".join(df.columns)}) 
+        INSERT INTO {targetTable} ({", ".join(df.columns)}) 
         VALUES ({placeholders})
         """
         #print(query)  # Imprimir la consulta y los valores

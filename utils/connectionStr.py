@@ -1,8 +1,8 @@
 
-server = 'server-url'
-database = 'databaseName'
-username = 'user'
-password = 'password'
+server = 'ufinetpowerbisql.database.windows.net'
+database = 'PowerBI-Desa'
+username = 'pruebaApi'
+password = 'Zm6dnAkgMld5XZ9aDP30'
 
 
 def obteinConnStr():
