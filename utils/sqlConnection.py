@@ -9,8 +9,8 @@ import pyodbc
 def obteinConnStr():
     server = 'ufinetpowerbisql.database.windows.net'
     database = 'PowerBI-Desa'
-    username = 'adminpowerbi'
-    password = 'ZSzdqiuQ1YamBqhg4bX5'
+    username = 'pruebaApi'
+    password = 'Zm6dnAkgMld5XZ9aDP30'
      # Create a connection string
     conn_str = (
         f"DRIVER={{ODBC Driver 17 for SQL Server}};"
@@ -29,23 +29,21 @@ def create_to_sql(df, targetTable):
         'object': 'VARCHAR(200)',
         'float64': 'INTEGER'
     }
+
     # Connect to SQL server
     conn = pyodbc.connect(conn_str)
     cursor = conn.cursor()
     
-    # Reemplazar NaN con valores adecuados
-    df = df.fillna('')
-
     #Crear la tabla si no existe
-    columns = ", ".join([f"{col} {typeConversion[str(df[col].dtype)] }" for col in df.columns])
+    columns = ", ".join([f"{col} {typeConversion[str(df[col].dtype)]}" for col in df.columns])
     query = f"""
     IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='{targetTable}' AND xtype='U')
-    CREATE TABLE {targetTable} (
+    CREATE TABLE PA.{targetTable} (
         {columns}
-    )
+    );
     """
     
-    print(query)  # Imprimir la consulta y los valores
+    #print(query)  # Imprimir la consulta y los valores
     cursor.execute(query)
 
     conn.commit()
@@ -74,7 +72,7 @@ def insert_to_sql(df, targetTable):
         batch.append(tuple(row))
         if len(batch) == batch_size:
             query = f"""
-            INSERT INTO {targetTable} ({", ".join(df.columns)}) 
+            INSERT INTO PA.{targetTable} ({", ".join(df.columns)}) 
             VALUES ({placeholders})
             """
             #print(query)  # Imprimir la consulta y los valores
@@ -85,7 +83,7 @@ def insert_to_sql(df, targetTable):
     # Insertar si quedan registros restantes
     if batch:
         query = f"""
-        INSERT INTO {targetTable} ({", ".join(df.columns)}) 
+        INSERT INTO PA.{targetTable} ({", ".join(df.columns)}) 
         VALUES ({placeholders})
         """
         #print(query)  # Imprimir la consulta y los valores
