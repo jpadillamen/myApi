@@ -4,22 +4,8 @@
 import pandas as pd
 from sqlalchemy import create_engine
 import pyodbc
+from utils.connectionStr import obteinConnStr
 
-
-def obteinConnStr():
-    server = 'ufinetpowerbisql.database.windows.net'
-    database = 'PowerBI-Desa'
-    username = 'pruebaApi'
-    password = 'Zm6dnAkgMld5XZ9aDP30'
-     # Create a connection string
-    conn_str = (
-        f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-        f"SERVER={server};"
-        f"DATABASE={database};"
-        f"UID={username};"
-        f"PWD={password}"
-    )
-    return conn_str
 
 def create_to_sql(df, targetTable):
 
@@ -94,17 +80,3 @@ def insert_to_sql(df, targetTable):
     cursor.close()
     conn.close()
     print("Datos insertados exitosamente")
-
-def write_dataframe_to_sql(df, table_name):
-    # Crear la cadena de conexión
-    conn_str = (
-        f"mssql+pyodbc://{username}:{password}@{server}/{database}"
-        "?driver=ODBC+Driver+17+for+SQL+Server"
-    )
-    
-    # Crear el motor de conexión
-    engine = create_engine(conn_str)
-    
-    # Escribir el DataFrame en la base de datos SQL
-    df.to_sql(table_name, engine, if_exists='replace', index=False)
-    print("DataFrame escrito en la base de datos exitosamente")

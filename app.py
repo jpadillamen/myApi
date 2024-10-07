@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from utils.sqlConnection import insert_to_sql,create_to_sql
+from utils.connectionStr import obteinConnStr
 import pandas as pd
 import os
 
