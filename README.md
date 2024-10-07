@@ -24,7 +24,14 @@ por ejemplo:
     curl --location --request POST 'http://127.0.0.1:5000/upload-csv' \
 --form 'file=@"/C:/Users/jpadilla/AppData/Local/Programs/Python/Python311/Scripts/Globant/hired_employees.csv"'
 ```
+si se utiliza postman, indicar la url, indicar que el metodo es POST, y en la sección Body, en form-data añadir un parametro file de tipo file.
+Esto nos permite seleccionar el fichero:
+![image](https://github.com/user-attachments/assets/2b4b7d0e-544a-4756-b46f-e5c37f20fd9e)
 
+## Explanation
+1. EL proceso recive un fichero y realiza validaciones sobre este: Que sea csv, que el nombre sea uno de los tres posibles ficheros que espera.
+2. Una vez que valida la información, almacena el fichero en un dataframe.
+3. Al dataframe le asigna columnas en función del nombre de fichero.
 5. Funciones en la librería `utils`, `sqlConnection`:
 
     5.1. `create_to_sql(df, targetTable)`: 
@@ -32,3 +39,6 @@ por ejemplo:
 
     5.2. `insert_to_sql(df, targetTable)`:
     Inserta los datos del dataframe en la tabla especificada. Si la tabla no existe, primero la crea utilizando la función `create_to_sql`.
+6. La base de datos donde se quiere 
+## Contact
+You can concact me via email: jpadillamen@gmail.com
